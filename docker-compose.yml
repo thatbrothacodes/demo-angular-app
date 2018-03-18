@@ -1,12 +1,11 @@
 version: "3"
 
 services:
-  ANGULAR-APP-DEMO:
+  DEMO-ANGULAR-APP:
     build: ./
-    container_name: angular-demo-app-client
-    command: yarn start
-    image: angular-demo-app:0.1.0
+    container_name: demo-angular-app-client
+    image: demo-angular-app:0.2.0
     ports:
-      - "4200:4200"
+      - "80:80"
   
     

@@ -1,5 +1,5 @@
 # Use node 9.8.0 LTS
-FROM node:9.8.0
+FROM node:9.8.0 as NODE
 ENV LAST_UPDATED 20180311T152000
 
 ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
@@ -25,14 +25,14 @@ RUN yarn install
 RUN ng build --prod --build-optimizer
 
 # Expose Container Port
-EXPOSE 4200
+EXPOSE 80
 
-# Change working directory
+FROM nginx:1.13.9
+
+COPY --from=NODE /client/dist/ /usr/share/nginx/html
+
 COPY /server /server
 WORKDIR /server
 
-# Install server dependencies
-RUN yarn add express
-
-# Launch application
-CMD ["yarn","start"]
+# copy local NGINX config to NGINX server
+COPY /server/nginx.config /etc/nginx/conf.d/default.conf
