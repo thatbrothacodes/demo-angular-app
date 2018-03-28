@@ -1,3 +1,7 @@
+dist: trusty
+sudo: required
+addons:
+  chrome: stable
 language: node_js
 script:
   cd client && yarn && ng test && ng e2e
