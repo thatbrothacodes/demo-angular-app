@@ -1,5 +1,10 @@
 # TestApp
 
+[![Build Status](https://travis-ci.org/thatbrothacodes/demo-angular-app.svg?branch=development)](https://travis-ci.org/thatbrothacodes/demo-angular-app)
+[![Dependency Status][david-badge]][david-badge-url]
+[![devDependency Status][david-dev-badge]][david-dev-badge-url]
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.3.
 
 ## Development server
