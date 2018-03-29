@@ -1,15 +1,20 @@
 dist: trusty
 sudo: required
+env:
+  global:
+    - CC_TEST_REPORTER_ID=1313761df545777613a4c4073a7b659edf3ee200e56c41ba122f318b241198d9
 addons:
   chrome: stable
 language: node_js
 before_install:
   - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 script:
   cd client && yarn && ng test --watch=false && ng e2e && ng build --prod
-branches:
-  except:
-  - master
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
