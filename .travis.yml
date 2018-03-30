@@ -14,11 +14,11 @@ before_script:
 install:
   - npm install -g codecov
 script:
-  - cd client && 
-  yarn && 
-  ng test --watch=false && 
-  ng e2e && 
-  istanbul cover ./node_modules/karma/bin/karma run --report lcovonly  -- -l  && 
-  codecov &&
-  ng build --prod
+  - cd client
+  - yarn 
+  - ng test --watch=false
+  - ng e2e 
+  - istanbul cover ./node_modules/karma/bin/karma run --report lcovonly  -- -l  && 
+  - codecov
+  - ng build --prod
   
