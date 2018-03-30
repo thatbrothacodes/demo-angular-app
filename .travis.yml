@@ -3,6 +3,8 @@ sudo: required
 addons:
   chrome: stable
 language: node_js
+services:
+  - docker
 before_install:
   - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 before_script:
@@ -18,3 +20,6 @@ script:
   - istanbul cover ./node_modules/karma/bin/karma start -- --single-run --cc
   - codecov -t $CODECOV_TOKEN
   - ng build --prod
+  - cd ..
+  - docker-compose build
+  - docker tag demo-angular-app:0.4.0 826109606486.dkr.ecr.us-east-1.amazonaws.com/demo-angular-app
