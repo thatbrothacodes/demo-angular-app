@@ -16,5 +16,5 @@ script:
   - ng test --watch=false
   - ng e2e
   - istanbul cover ./node_modules/karma/bin/karma start -- --single-run --cc
-  - codecov -t dfb94a19-60a5-428e-a1a6-3f5e5169f2ee
+  - codecov -t $CODECOV_TOKEN
   - ng build --prod
