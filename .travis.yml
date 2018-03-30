@@ -5,7 +5,6 @@ addons:
   apt:
     sources:
     - deadsnakes
-    - ubuntu-toolchain-r-test
     packages:
       - python3.6
       - python3-pip
