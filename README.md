@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/thatbrothacodes/demo-angular-app.svg?branch=development)](https://travis-ci.org/thatbrothacodes/demo-angular-app)
 [![Maintainability](https://api.codeclimate.com/v1/badges/162329e235deb94448ec/maintainability)](https://codeclimate.com/github/thatbrothacodes/demo-angular-app/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/162329e235deb94448ec/test_coverage)](https://codeclimate.com/github/thatbrothacodes/demo-angular-app/test_coverage)
+[![codecov](https://codecov.io/gh/thatbrothacodes/demo-angular-app/branch/development/graph/badge.svg)](https://codecov.io/gh/thatbrothacodes/demo-angular-app)
 [![Dependency Status](https://david-dm.org/thatbrothacodes/demo-angular-app.svg)](https://david-dm.org/thatbrothacodes/demo-angular-app.svg)
 [![devDependency Status](https://david-dm.org/thatbrothacodes/demo-angular-app/dev-status.svg)](https://david-dm.org/thatbrothacodes/demo-angular-app.svg?type=dev)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
