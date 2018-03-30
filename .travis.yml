@@ -1,10 +1,10 @@
 dist: trusty
 sudo: required
-env:
-  global:
-    - CC_TEST_REPORTER_ID=1313761df545777613a4c4073a7b659edf3ee200e56c41ba122f318b241198d9
 addons:
   chrome: stable
+  code_climate:
+    repo_token:
+      secure: "pYUXx9n+AjRXV/nLeZ/5GAAd2BfklrTGYV4x5+QWoOx58nWQZhuu1pmzPL2ISKJAXiOMiBkxozx33yCIKULmojas9fvbBpZd0JsiIzkWNAG3w9vgodQHyhNVxEdKxjLlvNpGyOv40Fnax5B/gZSnZ84YxEApp4odu1VR8CWGqkZuQ8R+79CYi1QrrCcJanw4UKKTA67SpgMAZ3tuZ8kqJMTX8aLnFSq8pwIxB2mO/xjb2T4gf7qrV+KFnlyvwlSdBOT062mrmdxggwdau/dIRz68sCAKoKFlRmF2tGRO7s2WuLdcNbpDQomYIZIaPG6sHDIXZrLWrJ+hEKhbByLxznalJYvaiqXvmUim32DUGFJugLX21m8Ymnqu2MqvVkSmC5Q+7MiThA714syp1C12XRG5G4H40V0R3WBaVghugXSh8Y6JbPztg0/n8pVqO9gusj+j01W+ehHfwBhxZfwEkyDVTUFO2KPQTx0EncbLfdWb1JVPhKWu334TH9HQ3z+rBJ+k0gw7VJ+q/OuvqQL3VrTvHKlaajPcUHh1q6zmgc8NFa9+c0zGUjCqmfDvgOL33SXeDabFFZcv/lVK0l33GujF4M54AFnr5/LAkO1dXv4BNTYEwnWny3eKo8VjbvIIlV+1sZfjXkN3ZQhljyKyEITVjMQM+KdM45lrYBk7eao="
 language: node_js
 before_install:
   - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
@@ -18,3 +18,4 @@ script:
   cd client && yarn && ng test --watch=false && ng e2e && ng build --prod
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  
