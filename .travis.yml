@@ -15,6 +15,6 @@ script:
   - yarn
   - ng test --watch=false
   - ng e2e
-  - istanbul cover ng test -- --single-run --cc
+  - istanbul cover ./node_modules/karma/bin/karma start -- --single-run --cc
   - codecov -t dfb94a19-60a5-428e-a1a6-3f5e5169f2ee
   - ng build --prod
