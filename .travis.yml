@@ -30,3 +30,4 @@ script:
   - cd ..
   - docker-compose build
   - docker tag demo-angular-app:0.4.0 826109606486.dkr.ecr.us-east-1.amazonaws.com/demo-angular-app
+  - aws ecr get-login --no-include-email
