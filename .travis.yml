@@ -12,6 +12,7 @@ addons:
     packages:
     - python3.6
     - python3-pip
+    - xclip
 language: node_js
 services:
 - docker
@@ -34,4 +35,5 @@ script:
 - cd ..
 - docker-compose build
 - docker tag demo-angular-app:0.4.0 826109606486.dkr.ecr.us-east-1.amazonaws.com/demo-angular-app
-- aws ecr get-login --no-include-email
+- eval $(aws ecr get-login --no-include-email)
+- docker push 826109606486.dkr.ecr.us-east-1.amazonaws.com/demo-angular-app
