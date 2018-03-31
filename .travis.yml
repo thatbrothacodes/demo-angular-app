@@ -19,7 +19,7 @@ before_script:
   - sh -e /etc/init.d/xvfb start
 install:
   - npm install -g codecov && npm install -g istanbul
-  - pip install awscli
+  - pip3 install awscli
 script:
   - cd client
   - yarn
