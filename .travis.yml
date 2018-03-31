@@ -12,14 +12,13 @@ language: node_js
 services:
   - docker
 before_install:
-  - sudo apt-get -qq update
   - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
-before_script:
+  - pip3 install --user awscli
+  before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 install:
   - npm install -g codecov && npm install -g istanbul
-  - pip3 install awscli
 script:
   - cd client
   - yarn
