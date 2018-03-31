@@ -1,3 +1,7 @@
+env:
+  global:
+  - secure: Il2SLiC2Z6Z1p2SbgtOV4Ti7RpJckgZDLU69H3lAOHw6HTI8tRNOjNEvgz5AwDoywbaTh3gfgUVZQd9acfj/ZYZjub3YGOrwnnJibJgQNgMOrQfN/JCu+zhkuST9VwJI+N8S3MdfQ5AsDV5P2E90RhK2gKEQ/48BlL5517krefpnM76fVv6n6zWkYrQKi5kGBrvRuoBRlGhlunV7WlF9MKc+g/0V77/KnxVAMIPsOzjtpv56n+9x4U8TidUUcV3h+hymkV1ntwAz65DkKPvO51cWKz6d/ioaX48NW5RoYdO8g6lviWiKyKvt1XfW9WR1ZP4v/1vyl8y712Ff27MGnvKQbGfl6nUXJ4JXl5Lyt821Z0/x+HTUgxYSc24tUqH4Nmf3epg+Lm65bbI+t5WLNxivfXH6D0ZqsQt7VgtAL90GNhMsleGLC8hLB22L3KeAKxKd2fayZd1IyBMLUgMqCwZtFwn78uy3XjGINZjBJ/q/098ooZ2SBbWbE1ax450+OhtOwa1TOQM6kf9PAToMTc+sPzesP9iJ8jwFCzFe/CzeSBjBxPO2RMGMb0KZQxJs3bet3PZx06dsL8A/oX3TQz32SPLl/96/+OhKBOYI19V2EGVbmHXhZzRR3LfxtsKLtVbUuCOca39dPNfN2STmebGsMKYne9H1rcpzo7k3Mn4=
+  - secure: moRgOSXUNMeEu5XWtFLUnc3oHuzfo2O2HmJ+monIltAxBKxvXIKB0jb4RtlhulqLg1VmivzZe7bBnXeXQrAMuwRPo7J3omaP+rRWc4MusyCJyNgVCi2fQ6f6kizpsLCJENuA14vp4apLcMmMg10e7m4AnMZSfvA0LxMCGS3hfC7lAOQ5XicanHLODa5NstMxLAPp9s40M9EmfJkwxbzr7KwQtGQXBO7TBgCDmIXjYr+GJS8wfrPGSyP9nVdI1fO1aheEKhdt3g3KWJ54w9C62c/+y2eAQOU3G1dCixmyGLbt/j+fF+Nhyvl+W9Hr+9InnxLAyp5f2vCNXy16F7sSwD78UhXIKHl8y+8yC7dSBw0b1hTnFKa/u7HhC3grZvIW5UI3kdbn2O75SnxZAAcCvIfX6D4aqdl/kTMyZMAb01p+RpVsp++ympuBiH+DQA04Vf9khxbxWmEJnhmrv+SEtmhQljWUP5vw9/Sxn9eQnmnZHRIIVGHtvpLx0/ERpcrI61RTx3sqb2Xa8hM0+QUeajoOyI3jK+vnuO3oQmJgoTyunWmZqZcMXLWt4hi3O6jvAVD0i6E6O2x+t7G5NPIwxj/KHiZP5BHQu4WCoZ3PWdWRC7qfPdneaVS/Q9gApSCibjPyMwRLrXHy4Sl7duLVRnx/qlbJZGbwY6v5bDHknLg=
 dist: trusty
 sudo: required
 addons:
@@ -6,28 +10,28 @@ addons:
     sources:
     - deadsnakes
     packages:
-      - python3.6
-      - python3-pip
+    - python3.6
+    - python3-pip
 language: node_js
 services:
-  - docker
+- docker
 before_install:
-  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
+- google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 before_script:
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
 install:
-  - npm install -g codecov && npm install -g istanbul
-  - pip3 install --user awscli
+- npm install -g codecov && npm install -g istanbul
+- pip3 install --user awscli
 script:
-  - cd client
-  - yarn
-  - ng test --watch=false
-  - ng e2e
-  - istanbul cover ./node_modules/karma/bin/karma start -- --single-run --cc
-  - codecov -t $CODECOV_TOKEN
-  - ng build --prod
-  - cd ..
-  - docker-compose build
-  - docker tag demo-angular-app:0.4.0 826109606486.dkr.ecr.us-east-1.amazonaws.com/demo-angular-app
-  - aws ecr get-login --no-include-email
+- cd client
+- yarn
+- ng test --watch=false
+- ng e2e
+- istanbul cover ./node_modules/karma/bin/karma start -- --single-run --cc
+- codecov -t $CODECOV_TOKEN
+- ng build --prod
+- cd ..
+- docker-compose build
+- docker tag demo-angular-app:0.4.0 826109606486.dkr.ecr.us-east-1.amazonaws.com/demo-angular-app
+- aws ecr get-login --no-include-email
