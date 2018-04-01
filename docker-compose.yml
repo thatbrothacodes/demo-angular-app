@@ -4,7 +4,7 @@ services:
   DEMO-ANGULAR-APP:
     build: ./
     container_name: demo-angular-app-client
-    image: demo-angular-app:0.5.0
+    image: demo-angular-app:0.6.0
     ports:
       - "80:80"
   
