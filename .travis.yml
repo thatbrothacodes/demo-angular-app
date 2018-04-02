@@ -38,3 +38,5 @@ script:
 - docker push 826109606486.dkr.ecr.us-east-1.amazonaws.com/demo-angular-app:0.6.0
 - aws ecs register-task-definition --cli-input-json file://demo-angular-app-def.json
 - aws ecs update-service --service demo-angular-app-service --task-definition demo-angular-app --cluster demo-web-apps
+
+# aws ecs create-service --load-balancers="targetGroupArn=arn:aws:elasticloadbalancing:us-east-1:826109606486:targetgroup/demo-angular-app-target-group/5cc9af4374d61593,containerName=demo-angular-app,containerPort=80" --cluster demo-web-apps --service-name demo-angular-app-service --task-definition demo-angular-app --desired-count 1 --launch-type "FARGATE" --network-configuration "awsvpcConfiguration={subnets=[subnet-ae51f9a1,subnet-462de70c],securityGroups=[sg-e5eee493],assignPublicIp=ENABLED}" 
