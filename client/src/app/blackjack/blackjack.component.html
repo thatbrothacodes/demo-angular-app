@@ -1,3 +1,61 @@
-<p>
-  blackjack works!
-</p>
+<div style="display: flex; flex: 1 0 auto; border: solid 1px black; flex-direction: row;">
+  <div style="display: flex; flex: 1 0 auto; border: solid 1px black; flex-direction: row; align-items: center; justify-content: flex-end;">
+    Cards
+  </div>
+  <div style="display: flex; flex: 1 0 auto; border: solid 1px black; flex-direction: column;">
+      <div style="display: flex; flex: 1 0 auto; align-items: center; flex-direction: column;">
+        <div style="display: flex; align-items: flex-start;">
+            <h1>Dealer</h1>
+        </div>
+        <div style="display: flex; flex: 1 0 auto; justify-content: center; flex-direction: column;">
+          <div *ngFor="let card of dealerCards">
+            <div>{{card.suit}}&nbsp;{{card.value}}</div>
+          </div>
+          <div>
+            {{getDealerCardsTotal}}
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; flex: 1 0 auto; align-items: center; flex-direction: column;">
+        <div style="display: flex; align-items: flex-start;">
+            <h1>Player</h1>
+        </div>
+        <div style="display: flex; flex: 1 0 auto; justify-content: center; flex-direction: column;">
+          <div *ngFor="let card of playerCards">
+            <div>{{card.suit}}&nbsp;{{card.value}}</div>
+          </div>
+          <div>
+            {{getPlayerCardsTotal}}
+          </div>
+        </div>
+        <div style="display: flex; align-items: flex-end;">
+          <div class="btn-game-action-container">
+            <button 
+              (click)="newHandClick()"
+              mat-raised-button>
+                New Hand
+            </button>
+          </div>
+          <div class="btn-game-action-container">
+            <button
+              [disabled]="!canPlayerHit || isPlayerBlackjack || isStand"
+              (click)="hitPlayerClick()" 
+              mat-raised-button>
+                Hit
+            </button>
+          </div>
+          <div class="btn-game-action-container">
+            <button
+              [disabled]="isStand"
+              (click)="standClick()"
+              mat-raised-button>
+                Stand
+            </button>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div style="display: flex; flex: 1 0 auto; border: solid 1px black; flex-direction: column;">
+    <div></div>
+  </div>
+</div>
