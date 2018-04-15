@@ -4,9 +4,10 @@ import { Card } from '../models/card';
 @Injectable()
 export class BlackjackService {
   private decks: number;
-  currentShoe: Array<Card>;
+  private currentShoe: Array<Card>;
   playerCards: Array<Card>;
   dealerCards: Array<Card>;
+
   newHand() {
     this.clearCards();
     this.distributeNewCards();
@@ -37,6 +38,18 @@ export class BlackjackService {
     return cards.length < 5 && !this.isPlayerBusted(cards);
   }
 
+  playDealer() {
+    do {
+      this.hitDealer();
+    } while (!this.isPlayerBusted(this.dealerCards) &&
+      !this.isPlayerBlackjack(this.dealerCards) &&
+      this.getCardsTotal(this.dealerCards) < this.getCardsTotal(this.playerCards));
+
+      return !this.isPlayerBusted(this.dealerCards) ||
+        this.isPlayerBlackjack(this.dealerCards) ||
+        this.getCardsTotal(this.dealerCards) <= 21;
+  }
+
   private isBusted(cards) {
      return this.getCardsTotal(cards) > 21;
   }
@@ -48,7 +61,6 @@ export class BlackjackService {
 
   getCardsTotal(cards) {
     const cardValues = cards.map(p => p.value);
-    // const cardValues = [11, 0];
 
     return cardValues.reduce((a, c, i) => {
       if (c === 0) {

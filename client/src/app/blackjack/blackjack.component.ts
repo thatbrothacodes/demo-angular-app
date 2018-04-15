@@ -1,4 +1,4 @@
-import { Input, Component, OnInit, Output } from '@angular/core';
+import { Input, Component, OnInit, Output, AfterViewInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { DealerWinnerDialogComponent } from './components/dealer-winner-dialog.component';
 import { PlayerWinnerDialogComponent } from './components/player-winner-dialog.component';
@@ -15,8 +15,7 @@ import { Card } from './models/card';
   templateUrl: './blackjack.component.html',
   styleUrls: ['./blackjack.component.css']
 })
-export class BlackjackComponent implements OnInit {
-  dealerShoe = new Array();
+export class BlackjackComponent implements OnInit, AfterViewInit {
   isStand = false;
 
   constructor(private service: BlackjackService,
@@ -25,7 +24,14 @@ export class BlackjackComponent implements OnInit {
 
   ngOnInit() {
     this.service.newGame();
-    this.dealerShoe = this.service.currentShoe;
+  }
+
+  ngAfterViewInit() {
+    if (this.service.isPlayerBlackjack(this.playerCards)) {
+      this.openPlayerDialog();
+    } else if (this.service.isPlayerBlackjack(this.dealerCards)) {
+      this.openDealerDialog();
+    }
   }
 
   @Input()
@@ -76,13 +82,23 @@ export class BlackjackComponent implements OnInit {
   @Output()
   hitPlayerClick() {
     this.service.hitPlayer();
+
+    if (this.service.isPlayerBlackjack(this.playerCards)) {
+      this.openPlayerDialog();
+    } else if (this.service.isPlayerBusted(this.playerCards)) {
+      this.openDealerDialog();
+    }
   }
 
   @Output()
   standClick() {
     this.isStand = true;
-    // this.openDealerDialog();
-    this.openPlayerDialog();
+
+    if (this.service.playDealer()) {
+      this.openDealerDialog();
+    } else {
+      this.openPlayerDialog();
+    }
   }
 
   @Output()

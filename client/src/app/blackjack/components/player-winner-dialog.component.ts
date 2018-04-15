@@ -14,5 +14,4 @@ export class PlayerWinnerDialogComponent {
   openDialog() {
     this.dialog.open(PlayerWinnerDialogComponent);
   }
-
 }

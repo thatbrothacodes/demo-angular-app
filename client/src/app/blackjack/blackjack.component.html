@@ -38,7 +38,7 @@
           </div>
           <div class="btn-game-action-container">
             <button
-              [disabled]="!canPlayerHit || isPlayerBlackjack || isStand"
+              [disabled]="!canPlayerHit || isPlayerBlackjack || isStand || isDealerBlackjack"
               (click)="hitPlayerClick()" 
               mat-raised-button>
                 Hit
@@ -46,7 +46,7 @@
           </div>
           <div class="btn-game-action-container">
             <button
-              [disabled]="isStand"
+              [disabled]="isStand || isPlayerBlackjack || isDealerBlackjack || !canPlayerHit"
               (click)="standClick()"
               mat-raised-button>
                 Stand

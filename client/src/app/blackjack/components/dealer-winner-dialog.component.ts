@@ -1,5 +1,5 @@
 import { Component, Output } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-dealer-winner-dialog',
@@ -8,17 +8,10 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 })
 export class DealerWinnerDialogComponent {
 
-  private dialogRef: MatDialogRef<DealerWinnerDialogComponent>;
   constructor(private dialog: MatDialog) { }
 
   @Output()
-  closeDialog() {
-    this.dialogRef.close();
-  }
-
-  @Output()
   openDialog() {
-    this.dialogRef = this.dialog.open(DealerWinnerDialogComponent);
+    this.dialog.open(DealerWinnerDialogComponent);
   }
-
 }
