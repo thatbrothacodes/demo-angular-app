@@ -60,16 +60,6 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
   }
 
   @Input()
-  get getPlayerCardsTotal(): number {
-    return this.service.getCardsTotal(this.playerCards);
-  }
-
-  @Input()
-  get getDealerCardsTotal(): number {
-    return this.service.getCardsTotal(this.dealerCards);
-  }
-
-  @Input()
   get playerCards(): Array<Card> {
     return this.service.playerCards;
   }
@@ -87,14 +77,23 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
       this.openPlayerDialog();
     } else if (this.service.isPlayerBusted(this.playerCards)) {
       this.openDealerDialog();
+    } else if (this.service.getCardsTotal(this.playerCards) === 21) {
+      this.openPlayerDialog();
     }
   }
 
   @Output()
   standClick() {
     this.isStand = true;
+    this.service.playDealer();
 
-    if (this.service.playDealer()) {
+    if (this.service.isPlayerBlackjack(this.dealerCards)) {
+      this.openDealerDialog();
+    } else if (this.service.isPlayerBusted(this.dealerCards)) {
+      this.openPlayerDialog();
+    } else if (this.service.getCardsTotal(this.dealerCards) >= this.service.getCardsTotal(this.playerCards)) {
+      this.openDealerDialog();
+    } else if (this.service.getCardsTotal(this.dealerCards) === 21) {
       this.openDealerDialog();
     } else {
       this.openPlayerDialog();
@@ -105,6 +104,12 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
   newHandClick() {
     this.isStand = false;
     this.service.newHand();
+
+    if (this.service.isPlayerBlackjack(this.dealerCards)) {
+      this.openDealerDialog();
+    } else if (this.service.isPlayerBlackjack(this.playerCards)) {
+      this.openPlayerDialog();
+    }
   }
 
   private openDealerDialog() {

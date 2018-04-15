@@ -44,10 +44,6 @@ export class BlackjackService {
     } while (!this.isPlayerBusted(this.dealerCards) &&
       !this.isPlayerBlackjack(this.dealerCards) &&
       this.getCardsTotal(this.dealerCards) < this.getCardsTotal(this.playerCards));
-
-      return !this.isPlayerBusted(this.dealerCards) ||
-        this.isPlayerBlackjack(this.dealerCards) ||
-        this.getCardsTotal(this.dealerCards) <= 21;
   }
 
   private isBusted(cards) {

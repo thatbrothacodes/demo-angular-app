@@ -1,32 +1,21 @@
-<div style="display: flex; flex: 1 0 auto; border: solid 1px black; flex-direction: row;">
-  <div style="display: flex; flex: 1 0 auto; border: solid 1px black; flex-direction: row; align-items: center; justify-content: flex-end;">
-    Cards
+<div style="display: flex; flex: 1 0 auto; flex-direction: row;">
+  <div style="display: flex; flex: 1 0 auto; flex-direction: row; align-items: center; justify-content: flex-end;">
   </div>
-  <div style="display: flex; flex: 1 0 auto; border: solid 1px black; flex-direction: column;">
+  <div style="display: flex; flex: 1 0 auto; flex-direction: column;">
       <div style="display: flex; flex: 1 0 auto; align-items: center; flex-direction: column;">
         <div style="display: flex; align-items: flex-start;">
             <h1>Dealer</h1>
         </div>
-        <div style="display: flex; flex: 1 0 auto; justify-content: center; flex-direction: column;">
-          <div *ngFor="let card of dealerCards">
-            <div>{{card.suit}}&nbsp;{{card.value}}</div>
-          </div>
-          <div>
-            {{getDealerCardsTotal}}
-          </div>
+        <div style="display: flex; flex: 1 0 auto; justify-content: center; flex-direction: column; width: 100%;">
+          <app-hand [cards]="dealerCards"></app-hand>
         </div>
       </div>
       <div style="display: flex; flex: 1 0 auto; align-items: center; flex-direction: column;">
         <div style="display: flex; align-items: flex-start;">
             <h1>Player</h1>
         </div>
-        <div style="display: flex; flex: 1 0 auto; justify-content: center; flex-direction: column;">
-          <div *ngFor="let card of playerCards">
-            <div>{{card.suit}}&nbsp;{{card.value}}</div>
-          </div>
-          <div>
-            {{getPlayerCardsTotal}}
-          </div>
+        <div style="display: flex; flex: 1 0 auto; justify-content: center; flex-direction: column; width: 100%;">
+          <app-hand [cards]="playerCards"></app-hand>
         </div>
         <div style="display: flex; align-items: flex-end;">
           <div class="btn-game-action-container">
@@ -55,7 +44,7 @@
         </div>
       </div>
   </div>
-  <div style="display: flex; flex: 1 0 auto; border: solid 1px black; flex-direction: column;">
+  <div style="display: flex; flex: 1 0 auto; flex-direction: column;">
     <div></div>
   </div>
 </div>
