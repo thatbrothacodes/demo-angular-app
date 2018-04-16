@@ -27,15 +27,15 @@ install:
 script:
 - cd client
 - yarn
-- ng test --watch=false
+# - ng test --watch=false
 - ng e2e
 - istanbul cover ./node_modules/karma/bin/karma start -- --single-run --cc
 - codecov -t $CODECOV_TOKEN
 - cd ..
 - docker-compose build
-- docker tag demo-angular-app:0.6.0 826109606486.dkr.ecr.us-east-1.amazonaws.com/demo-angular-app:0.6.0
+- docker tag demo-angular-app:0.7.0 826109606486.dkr.ecr.us-east-1.amazonaws.com/demo-angular-app:0.7.0
 - eval $(aws ecr get-login --no-include-email)
-- docker push 826109606486.dkr.ecr.us-east-1.amazonaws.com/demo-angular-app:0.6.0
+- docker push 826109606486.dkr.ecr.us-east-1.amazonaws.com/demo-angular-app:0.7.0
 - aws ecs register-task-definition --cli-input-json file://demo-angular-app-def.json
 - aws ecs update-service --service demo-angular-app-service --task-definition demo-angular-app --cluster demo-web-apps
 
