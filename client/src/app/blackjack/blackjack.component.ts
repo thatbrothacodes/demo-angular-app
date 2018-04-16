@@ -16,7 +16,8 @@ import { Card } from './models/card';
   styleUrls: ['./blackjack.component.css']
 })
 export class BlackjackComponent implements OnInit, AfterViewInit {
-  isStand = false;
+  private _isStand = false;
+  private _isGameOver = false;
 
   constructor(private service: BlackjackService,
     private playerDialog: PlayerWinnerDialogComponent,
@@ -35,28 +36,13 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
   }
 
   @Input()
-  get isPlayerBusted(): boolean {
-    return this.service.isPlayerBusted(this.playerCards);
+  get isStand() {
+    return this._isStand;
   }
 
   @Input()
-  get isDealerBusted(): boolean {
-    return this.service.isPlayerBusted(this.dealerCards);
-  }
-
-  @Input()
-  get isPlayerBlackjack(): boolean {
-    return this.service.isPlayerBlackjack(this.playerCards);
-  }
-
-  @Input()
-  get isDealerBlackjack(): boolean {
-    return this.service.isPlayerBlackjack(this.dealerCards);
-  }
-
-  @Input()
-  get canPlayerHit(): boolean {
-    return this.service.canPlayerHit(this.playerCards);
+  get isGameOver() {
+    return this._isGameOver;
   }
 
   @Input()
@@ -73,36 +59,30 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
   hitPlayerClick() {
     this.service.hitPlayer();
 
-    if (this.service.isPlayerBlackjack(this.playerCards)) {
+    if (this.service.isPlayerWinner()) {
       this.openPlayerDialog();
     } else if (this.service.isPlayerBusted(this.playerCards)) {
       this.openDealerDialog();
-    } else if (this.service.getCardsTotal(this.playerCards) === 21) {
-      this.openPlayerDialog();
     }
   }
 
   @Output()
   standClick() {
-    this.isStand = true;
+    this._isStand = true;
     this.service.playDealer();
 
-    if (this.service.isPlayerBlackjack(this.dealerCards)) {
-      this.openDealerDialog();
-    } else if (this.service.isPlayerBusted(this.dealerCards)) {
-      this.openPlayerDialog();
-    } else if (this.service.getCardsTotal(this.dealerCards) >= this.service.getCardsTotal(this.playerCards)) {
-      this.openDealerDialog();
-    } else if (this.service.getCardsTotal(this.dealerCards) === 21) {
+    if (this.service.isDealerWinner()) {
       this.openDealerDialog();
     } else {
       this.openPlayerDialog();
     }
+
   }
 
   @Output()
   newHandClick() {
-    this.isStand = false;
+    this._isStand = false;
+    this._isGameOver = false;
     this.service.newHand();
 
     if (this.service.isPlayerBlackjack(this.dealerCards)) {
@@ -113,10 +93,12 @@ export class BlackjackComponent implements OnInit, AfterViewInit {
   }
 
   private openDealerDialog() {
+    this._isGameOver = true;
     this.dealerDialog.openDialog();
   }
 
   private openPlayerDialog() {
+    this._isGameOver = true;
     this.playerDialog.openDialog();
   }
 }

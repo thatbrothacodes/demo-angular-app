@@ -1,8 +1,34 @@
 :host {
     display: flex;
     flex: 1 0 auto;
+    flex-direction: column;
 }
 
 .btn-game-action-container {
     margin: 12px;
+}
+
+.btn-container {
+    display: flex; 
+    justify-content: center;
+}
+
+.cards-container {
+    display: flex; 
+    flex: 1 0 auto; 
+    justify-content: center; 
+    flex-direction: column; 
+    width: 100%;
+}
+
+.player-text-container {
+    display: flex; 
+    align-items: flex-start;
+}
+
+.player-container {
+    display: flex; 
+    flex: 1 0 auto; 
+    align-items: center; 
+    flex-direction: column;
 }

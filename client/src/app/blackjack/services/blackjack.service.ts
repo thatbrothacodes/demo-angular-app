@@ -39,11 +39,46 @@ export class BlackjackService {
   }
 
   playDealer() {
-    do {
-      this.hitDealer();
-    } while (!this.isPlayerBusted(this.dealerCards) &&
-      !this.isPlayerBlackjack(this.dealerCards) &&
-      this.getCardsTotal(this.dealerCards) < this.getCardsTotal(this.playerCards));
+    const dealerTotal = this.getCardsTotal(this.dealerCards);
+    const playerTotal = this.getCardsTotal(this.playerCards);
+
+    if (dealerTotal < playerTotal) {
+      do {
+        this.hitDealer();
+      } while (!this.isPlayerBusted(this.dealerCards) &&
+        !this.isPlayerBlackjack(this.dealerCards) &&
+        this.getCardsTotal(this.dealerCards) < this.getCardsTotal(this.playerCards));
+    }
+  }
+
+  isPlayerWinner() {
+    if (this.getCardsTotal(this.playerCards) > 21) {
+      return false;
+    } else if (this.getCardsTotal(this.playerCards) === 21) {
+      return true;
+    } else if (this.isPlayerBlackjack(this.playerCards)) {
+      return true;
+    } else if (this.getCardsTotal(this.playerCards) <= 21 && this.playerCards.length === 5) {
+      return true;
+    }
+
+    return false;
+  }
+
+  isDealerWinner() {
+    if (this.getCardsTotal(this.dealerCards) > 21) {
+      return false;
+    } else if (this.getCardsTotal(this.dealerCards) === 21) {
+      return true;
+    } else if (this.isPlayerBlackjack(this.dealerCards)) {
+      return true;
+    } else if (this.getCardsTotal(this.dealerCards) <= 21 && this.dealerCards.length === 5) {
+      return true;
+    } else if (this.getCardsTotal(this.dealerCards) >= this.getCardsTotal(this.playerCards)) {
+      return true;
+    }
+
+    return false;
   }
 
   private isBusted(cards) {
@@ -56,22 +91,40 @@ export class BlackjackService {
   }
 
   getCardsTotal(cards) {
+    let total = 0, bestTotal = 0;
     const cardValues = cards.map(p => p.value);
+    const faceCards = cardValues.filter(p => p >= 9);
+    const nonFaceCards = cardValues.filter(p => p > 0 && p < 9);
+    const aces = cardValues.filter(p => p === 0);
 
-    return cardValues.reduce((a, c, i) => {
-      if (c === 0) {
-        const bestSum = a + 11;
+    nonFaceCards.forEach(i => {
+      total += i + 1;
+    });
 
-        if (bestSum <= 21) {
-          return a + 11;
-        } else {
-          return a + 1;
-        }
-      } else if (c > 8) {
-        return a + 10;
+    faceCards.forEach(i => total += 10);
+
+    if (aces.length === 1) {
+      bestTotal = total + 11;
+
+      if (bestTotal > 21) {
+        bestTotal -= 10;
       }
-      return a + c + 1;
-    }, null);
+
+      return bestTotal;
+    } else if (aces.length > 1) {
+      bestTotal = total;
+      bestTotal += (aces.length - 1) * 1;
+
+      if ((bestTotal += 11) > 21) {
+        bestTotal += 1;
+      } else {
+        bestTotal += 11;
+      }
+
+      return bestTotal;
+    }
+
+    return total;
   }
 
   private distributeNewCards() {
