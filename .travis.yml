@@ -34,9 +34,9 @@ script:
 after_success:
 - cd ..
 - docker-compose build
-- docker tag demo-angular-app:0.8.0 826109606486.dkr.ecr.us-east-1.amazonaws.com/demo-angular-app:0.8.0
+- docker tag demo-angular-app:0.9.0 826109606486.dkr.ecr.us-east-1.amazonaws.com/demo-angular-app:0.9.0
 - eval $(aws ecr get-login --no-include-email)
-- docker push 826109606486.dkr.ecr.us-east-1.amazonaws.com/demo-angular-app:0.8.0
+- docker push 826109606486.dkr.ecr.us-east-1.amazonaws.com/demo-angular-app:0.9.0
 - aws ecs register-task-definition --cli-input-json file://demo-angular-app-def.json
 - aws ecs update-service --service demo-angular-app-service --task-definition demo-angular-app --cluster demo-web-apps
 

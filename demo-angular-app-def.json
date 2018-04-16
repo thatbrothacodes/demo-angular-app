@@ -5,7 +5,7 @@
     "containerDefinitions": [
         {
             "name": "demo-angular-app",
-            "image": "826109606486.dkr.ecr.us-east-1.amazonaws.com/demo-angular-app:0.8.0",
+            "image": "826109606486.dkr.ecr.us-east-1.amazonaws.com/demo-angular-app:0.9.0",
             "cpu": 256,
             "memory": 512,
             "portMappings": [
