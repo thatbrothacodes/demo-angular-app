@@ -27,8 +27,8 @@ install:
 script:
 - cd client
 - yarn
-- ng test --watch=false
-- ng e2e
+# - ng test --watch=false
+# - ng e2e
 # - istanbul cover ./node_modules/karma/bin/karma start -- --single-run --cc
 # - codecov -t $CODECOV_TOKEN
 after_success:
