@@ -22,7 +22,7 @@ USER root
 
 # Install client dependencies and build client
 RUN yarn install
-RUN ng build --prod --build-optimizer —-base-href /demos
+RUN ng build --prod --build-optimizer
 
 # Expose Container Port
 EXPOSE 80

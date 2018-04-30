@@ -4,6 +4,10 @@
     flex-direction: column;
 }
 
+.demo-link {
+    padding: 8px;
+}
+
 .container {
     width: 100%;
     min-height: 100vh;

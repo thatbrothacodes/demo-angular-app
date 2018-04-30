@@ -25,19 +25,29 @@ install:
 - npm install -g codecov && npm install -g istanbul
 - pip3 install --user awscli
 script:
-- cd client
-- yarn
+# - cd client
+# - yarn
 # - ng test --watch=false
 # - ng e2e
 # - istanbul cover ./node_modules/karma/bin/karma start -- --single-run --cc
 # - codecov -t $CODECOV_TOKEN
 after_success:
-- cd ..
+# - cd ..
 - docker-compose build
-- docker tag demo-angular-app:0.9.0 826109606486.dkr.ecr.us-east-1.amazonaws.com/demo-angular-app:0.9.0
+- docker tag demo-angular-app:0.10.0 826109606486.dkr.ecr.us-east-1.amazonaws.com/demo-angular-app:0.10.0
 - eval $(aws ecr get-login --no-include-email)
-- docker push 826109606486.dkr.ecr.us-east-1.amazonaws.com/demo-angular-app:0.9.0
-- aws ecs register-task-definition --cli-input-json file://demo-angular-app-def.json
-- aws ecs update-service --service demo-angular-app-service --task-definition demo-angular-app --cluster demo-web-apps
+- docker push 826109606486.dkr.ecr.us-east-1.amazonaws.com/demo-angular-app:0.10.0
+- aws ecs register-task-definition --cli-input-json file://ecs-task-def.json
+- aws ecs update-service --service demo-angular-app-service --task-definition demo-angular-app-task-def --cluster demo-web-apps
 
+
+# aws ecs create-cluster --cluster-name "demo-web-apps"
+# aws ecr create-repository --repository-name challenge-energy-simply
 # aws ecs create-service --load-balancers="targetGroupArn=arn:aws:elasticloadbalancing:us-east-1:826109606486:targetgroup/demo-angular-app-target-group/5cc9af4374d61593,containerName=demo-angular-app,containerPort=80" --cluster demo-web-apps --service-name demo-angular-app-service --task-definition demo-angular-app --desired-count 1 --launch-type "FARGATE" --network-configuration "awsvpcConfiguration={subnets=[subnet-ae51f9a1,subnet-462de70c],securityGroups=[sg-e5eee493],assignPublicIp=ENABLED}" 
+# aws ecs create-service --cluster demo-web-apps --service-name demo-angular-app-service --task-definition demo-angular-app --desired-count 1 --launch-type "FARGATE" --network-configuration "awsvpcConfiguration={subnets=[subnet-ae51f9a1,subnet-462de70c],securityGroups=[sg-e5eee493],assignPublicIp=ENABLED}" 
+# aws servicediscovery create-private-dns-namespace --name thatbrothacodes.com --vpc vpc-651f841e
+# aws servicediscovery create-service --name demo-angular-app-service-discovery --dns-config="NamespaceId=ns-hhldzang26dcrqy7,RoutingPolicy=MULTIVALUE,DnsRecords=[{Type=A,TTL=300}]"
+# aws ecs create-service --cli-input-json file://ecs-service-def.json --region us-east-1
+# aws route53 change-resource-record-sets --hosted-zone-id Z38IFILMB7YE1W --change-batch file://servicediscovery-def.json
+
+# aws servicediscovery register-instance --service-id srv-5cb3mzukbbsyjxxi --instance-id demo-angular-app.thatbrothacodes.com --attributes=[{AWS_INSTANCE_IPV4:34.239.178.124}]

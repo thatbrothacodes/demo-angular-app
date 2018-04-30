@@ -1,0 +1,16 @@
+{
+    "Changes": [
+        {
+        "Action": "UPSERT", 
+        "ResourceRecordSet": {
+            "Type":"A", 
+            "Name":"thatbrothacodes.com", 
+            "AliasTarget": {
+                "DNSName":"demo-angular-app.thatbrothacodes.com", 
+                "HostedZoneId":"Z2G3H0IM0L5MBK", 
+                "EvaluateTargetHealth":true
+            }
+        }
+        }
+    ]
+}
