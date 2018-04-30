@@ -31,7 +31,7 @@ script:
 # - ng e2e
 # - istanbul cover ./node_modules/karma/bin/karma start -- --single-run --cc
 # - codecov -t $CODECOV_TOKEN
-after_success:
+# after_success:
 # - cd ..
 - docker-compose build
 - docker tag demo-angular-app:0.10.0 826109606486.dkr.ecr.us-east-1.amazonaws.com/demo-angular-app:0.10.0
